@@ -1,3 +1,6 @@
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
     const choices = ["rock", "paper", "scissors"];
     var choice = Math.floor(Math.random() * choices.length);
@@ -13,80 +16,97 @@ function getPlayerChoice() {
     return choice;
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(playerSelection) {
+    let computerSelection = getComputerChoice();
+    let result = "";
     if (playerSelection == "rock") {
         if (computerSelection == "rock") {
-            return "tie";
+            result = "tie";
         }
         if (computerSelection == "paper") {
-            return "loss";
+            result = "loss";
         }
         if (computerSelection =="scissors") {
-            return "win";
+            result = "win";
         }
 
     }
     
     if (playerSelection == "paper") {
         if (computerSelection == "rock") {
-            return "win";
+            result = "win";
         }
         if (computerSelection == "paper") {
-            return "tie";
+            result = "tie";
         }
         if (computerSelection =="scissors") {
-            return "loss";
+            result = "loss";
         }
 
     }
 
     if (playerSelection == "scissors") {
         if (computerSelection == "rock") {
-            return "loss";
+            result = "loss";
         }
         if (computerSelection == "paper") {
-            return "win";
+            result = "win";
         }
         if (computerSelection =="scissors") {
-            return "tie";
+            result = "tie";
         }
 
     }
+    game(result, playerSelection, computerSelection);
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
+function game(results, playerSelection, computerSelection) {
+    let scoreBoard = ""
 
-    for (let i = 0; i < 5; i++) {
-        let playerChoice = getPlayerChoice();
-        let computerChoice = getComputerChoice();
-        let results = playRound(playerChoice, computerChoice);
-
-        console.log("You picked: " + playerChoice)
-        console.log("Computer picked: " + computerChoice)
-
-        if (results == "win") {
-            ++playerScore;
-            console.log("win!")
-        }
-        else if (results == "loss") {
-            ++computerScore;
-            console.log("loss!")
-        }
-        else {
-            console.log("tie!")
-        }
+    if (results == "win") {
+        ++playerScore;
+        scoreBoard = "Your score: " + playerScore + "<br>" + "Computer score: " + computerScore + "<br>" +
+            "Your choice: " + playerSelection + "<br>" + "Computer choice: " + computerSelection;
+        document.getElementById("results").innerHTML = "win!" + "<br>" + scoreBoard;
     }
-    if (playerScore > computerScore) {
-        console.log("You win the match!")
-    }
-    else if (playerScore < computerScore) {
-        console.log("You lose the match!")
+    else if (results == "loss") {
+        ++computerScore;
+        scoreBoard = "Your score: " + playerScore + "<br>" + "Computer score: " + computerScore + "<br>" +
+            "Your choice: " + playerSelection + "<br>" + "Computer choice: " + computerSelection;
+        document.getElementById("results").innerHTML = "loss!" + "<br>" + scoreBoard;
     }
     else {
-        console.log("The match is a tie!")
+        scoreBoard = "Your score: " + playerScore + "<br>" + "Computer score: " + computerScore + "<br>" +
+            "Your choice: " + playerSelection + "<br>" + "Computer choice: " + computerSelection;
+        document.getElementById("results").innerHTML = "tie!" + "<br>" + scoreBoard;
+    }
+
+    if (playerScore >= 5) {
+        document.getElementById("results").innerHTML = "You win the match!" + "<br>" + scoreBoard;
+        endGame();
+    }
+    if (computerScore >= 5) {
+        document.getElementById("results").innerHTML = "You lose the match!" + "<br>" + scoreBoard;
+        endGame();
     }
 }
 
-game();
+function endGame() {
+    const choices = document.querySelectorAll('.choice');
+
+    choices.forEach(choice => {
+      choice.disabled=true;
+    });
+}
+
+function restart() {
+    const choices = document.querySelectorAll('.choice');
+
+    choices.forEach(choice => {
+      choice.disabled=false;
+    });
+
+    playerScore = 0;
+    computerScore = 0;
+    document.getElementById("results").innerHTML = "Choose your weapon."
+}
