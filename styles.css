@@ -1,0 +1,49 @@
+body {
+    padding: 128px;
+    background-color: darkolivegreen;
+    color:aliceblue;
+    font-size: 24px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: auto;
+    text-align: center;
+    padding: 8px;
+    margin: 8px;
+}
+
+.container-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin: 8px;
+    gap: 8px;
+}
+
+.container-results {
+    flex-grow: 4;
+    margin: 64px;
+}
+
+input {
+    border-radius: 16px;
+    padding: 32px;
+    font-size: 32px;
+    color: aliceblue;
+    background-color: darkolivegreen;
+    border-color: aliceblue;
+    border: solid;
+}
+
+input:disabled {
+    background-color: grey;
+}
+
+input:active {
+    filter: brightness(85%)
+}
